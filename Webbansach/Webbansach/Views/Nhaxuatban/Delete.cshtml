@@ -1,0 +1,51 @@
+﻿@model Webbansach.Models.NHAXUATBAN
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutPAdmin.cshtml";
+}
+
+
+
+
+<div>
+    <h3>XÁC NHẬN XÓA NHÀ XUẤT BẢN</h3>
+    <h4 style="color:red">Bạn chắc chắn xóa nhà xuất bản này?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên Nhà xuất bản:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenNXB)
+        </dd>
+
+        <dt>
+            Địa chỉ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diachi)
+        </dd>
+
+        <dt>
+            Điện thoại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DienThoai)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về Danh sách Nhà xuất bản", "Index")
+        </div>
+    }
+</div>

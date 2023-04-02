@@ -1,0 +1,103 @@
+﻿@using Webbansach.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<SACH>
+
+@{
+    ViewBag.Title = "Sach";
+    Layout = "~/Views/Shared/_LayoutPAdmin.cshtml";
+}
+
+@helper Trucate(string input, int length)
+    {
+        if (input.Length < length)
+        {
+                    @input
+        }
+        else
+        {
+                @input.Substring(0, length) <Text> ..... </Text>
+        }
+    }
+
+<h2>QUẢN LÝ DANH MỤC SÁCH</h2>
+
+<p>
+    @Html.ActionLink("THÊM MỚI", "Themmoisach")
+</p>
+<table class="table">
+    <tr>
+        <th width="250">
+            TÊN SÁCH
+        </th>        
+        <th width="400">
+            MÔ TẢ
+        </th>
+        <th width="100">
+            GIÁ BÁN
+        </th>
+        <th width="200">
+            ẢNH BÌA
+        </th>
+        <th width="200">
+            NGÀY CẬP NHẬT
+        </th>
+        <th width="100">
+            SỐ LƯỢNG
+        </th>
+        <th width="150">
+            CHỦ ĐỀ
+        </th>
+        <th width="150">
+            NHÀ XUẤT BẢN
+        </th>
+        <th width="350"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tensach)
+    </td>
+    <td>
+       @Trucate(item.Mota,100)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Giaban)
+    </td>
+    <td>
+        <img width="200" src="~/Hinhsanpham/@item.Anhbia" />
+    </td>
+    <td>
+        @String.Format("{0:dd/MM/yyyy}", item.Ngaycapnhat)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Soluongton)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CHUDE.TenChuDe)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NHAXUATBAN.TenNXB)
+    </td>
+    <td>
+        @Html.ActionLink("Sửa", "Suasach", new { id = item.Masach }) |
+        @Html.ActionLink("Chi tiết", "Chitietsach", new { id = item.Masach }) |
+        @Html.ActionLink("Xóa", "Xoasach", new { id = item.Masach })
+    </td>
+</tr>
+    }
+
+</table>
+<div>
+    Trang @(Model.PageNumber>Model.PageCount?3:Model.PageNumber) /@Model.PageCount
+</div>
+<div class="Menutrang">
+    @Html.PagedListPager(Model, page => Url.Action("Sach", new { page = page }))
+</div>
+
+<style>
+    .Menutran li {
+        display: inline
+    }
+</style>
